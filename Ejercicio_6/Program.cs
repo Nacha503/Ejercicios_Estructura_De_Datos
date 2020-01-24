@@ -8,16 +8,17 @@ namespace Ejercicio_6
         //        Write a program that removes from a given sequence all numbers
         //that appear an odd count of times.
         //Example: array = {4, 2, 2, 5, 2, 3, 2, 3, 1, 5, 2} -> {5, 3, 3, 5}
-         static List<int> numeros = new List<int>() { 4, 2, 2, 5, 2, 3, 2, 3, 1, 5, 2 };
-
+        static List<int> numeros = new List<int>() { 4, 2, 2, 5, 2, 3, 2, 3, 1, 5, 2 };
+        static List<int> numerosConRepeticionesImpares = new List<int>();
+        static List<int> numerosYaBuscados = new List<int>();
         static void Main(string[] args)
         {
 
             Console.WriteLine("Ejercicio 6");
 
-            numeros = Eliminar(numeros);
+            numeros = Eliminar();
 
-           
+
             //numeros = BuscarElementosUnicos(numeros);
 
             foreach (var item in numeros)
@@ -30,22 +31,32 @@ namespace Ejercicio_6
 
         }
 
-        private static List<int> Eliminar(List<int> numeros)
+        private static List<int> Eliminar()
         {
             int apariciones;
-            List<int> numerosConRepeticionesPares = new List<int>(numeros);
+            //bool continuarBorrando = true;
+
 
 
             foreach (var item in numeros)
             {
-                apariciones = Contar(item);
+                if (YaSeBuscado(item))
+                {
+                    continue;
+                }
+                else
+                {
+                    apariciones = Contar(item);
 
-                if (apariciones % 2 != 0)
-                    numerosConRepeticionesPares.Remove(item);
+                    if (apariciones % 2 == 0)
+                        numerosConRepeticionesImpares.Add(item);
+
+                }
+
             }
 
-            return numerosConRepeticionesPares;
-            
+            return numerosConRepeticionesImpares;
+
         }
 
         private static int Contar(int valor)
@@ -59,6 +70,15 @@ namespace Ejercicio_6
             }
 
             return coicidencias;
+
+        }
+
+        private static bool YaSeBuscado(int item)
+        {
+            if (numerosYaBuscados.Contains(item))
+                return true;
+            else
+                return false;
 
         }
 
